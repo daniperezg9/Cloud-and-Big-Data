@@ -1,0 +1,51 @@
+div#contenedor { /* Contenedor que tiene la vista de la web*/
+	height : 100vh;
+	display : grid;
+	grid-template-columns: 20% auto 20%;
+	grid-template-rows: 25% 65% 10%;
+
+	margin : 0 auto;
+	border: 1px solid black;
+}
+
+header{
+    display: flex;
+	grid-column: 1 / 4;
+	background-color: #2f5df3;
+
+	grid-template-columns: 1fr 2fr;
+	grid-template-areas: "logo login";
+	align-items: center;
+}
+
+#LogoClash{
+    width: 125px;
+    height: 125px;
+    margin-right: 25px;
+}
+
+header h1{
+    color: white;
+    font-size: 2em;
+    grid-area: logo;
+}
+
+header p{
+    color: #f3eeee;
+}
+
+nav { /* Barra de navegación izquierda */
+    grid-column: 1 / 2;
+    background-color: red;
+}
+
+nav h3{
+    color: white;
+    font-size: 1.5em;
+    margin-left: 10px;
+}
+
+main {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
