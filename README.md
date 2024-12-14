@@ -1,6 +1,7 @@
 # Cloud & Big Data - Proyecto Final
 ## Descripcion del problema
-
+El proyecto se centra en el análisis de partidas de la temporada 18 de Clash Royale, un popular juego de estrategia en tiempo real desarrollado por Supercell. Con información de unas aproximadamente 38 millones de partidas, ofrece una rica fuente de datos para estudiar diversos aspectos del comportamiento de los jugadores y las dinámicas del juego, como las cartas más jugadas o el uso de recursos (elixir).
+Clash Royale enfrenta a dos jugadores en una arena, donde deben utilizar una combinación de cartas de tropas, hechizos y edificios para destruir las torres del oponente. Cada partida dura hasta 3 minutos, con tiempo extra si es necesario para determinar un ganador.
 ## Necesidad de procesamiento de Big Data y Cloud Computing
 Clash Royale es un juego que cuenta con millones de usuarios activos jugando casi a diario, lo que hace necesario usar técnicas especializadas en el procesamiento masivo de datos. Cloud es una herramienta útil para el procesamiento de estos datos gracias a su capacidad de escalabilidad, flexibilidad y costos eficientes. Además, ofrece un rendimiento optimizado y seguridad robusta, que lo convierte en una solución ideal para manejar la inmensa cantidad de datos generado por los jugadores.
 ## Descripción de los datos
@@ -20,6 +21,7 @@ Para crear la gráficas de los csv que devuelve todos estos scripts hemos desarr
 ## Uso
 ## Evaluación de desempeño
 ## Funcionalidades avanzadas
+
 ## Conclusiones
 ## Referencias
 - [Pyspark UDF](https://sparkbyexamples.com/pyspark/pyspark-udf-user-defined-function/)
