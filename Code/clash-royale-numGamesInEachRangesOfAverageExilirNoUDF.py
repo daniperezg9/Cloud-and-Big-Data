@@ -13,14 +13,14 @@ df = spark.read.csv(sys.argv[1], sep=',', inferSchema=True, header=True).coalesc
 # Ordenamos para tenerlo ordenado en funcion de la hora
 # Usamos un filtro porque hay unos 100 elementos que no tenian hora
 df_winner = df.filter(F.col("`winner.elixir.average`").isNotNull()) \
-              .withColumn("elixir_range", F.when((col >= 1) & (col < 2), "1-2")
-                                            .when((col >= 2) & (col < 3), "2-3")
-                                            .when((col >= 3) & (col < 4), "3-4")
-                                            .when((col >= 4) & (col < 5), "4-5")
-                                            .when((col >= 5) & (col < 6), "5-6")
-                                            .when((col >= 6) & (col < 7), "6-7")
-                                            .when((col >= 7) & (col < 8), "7-8")
-                                            .when((col >= 8) & (col < 9), "8-9")
+              .withColumn("elixir_range", F.when((F.col("`winner.elixir.average`") >= 1) & (F.col("`winner.elixir.average`") < 2), "1-2")
+                                            .when((F.col("`winner.elixir.average`")  >= 2) & (F.col("`winner.elixir.average`")  < 3), "2-3")
+                                            .when((F.col("`winner.elixir.average`")  >= 3) & (F.col("`winner.elixir.average`")  < 4), "3-4")
+                                            .when((F.col("`winner.elixir.average`")  >= 4) & (F.col("`winner.elixir.average`")  < 5), "4-5")
+                                            .when((F.col("`winner.elixir.average`")  >= 5) & (F.col("`winner.elixir.average`")  < 6), "5-6")
+                                            .when((F.col("`winner.elixir.average`")  >= 6) & (F.col("`winner.elixir.average`")  < 7), "6-7")
+                                            .when((F.col("`winner.elixir.average`")  >= 7) & (F.col("`winner.elixir.average`")  < 8), "7-8")
+                                            .when((F.col("`winner.elixir.average`")  >= 8) & (F.col("`winner.elixir.average`")  < 9), "8-9")
                                             .otherwise("9-10")) \
               .groupBy("elixir_range").count().withColumnRenamed("count", "winner_num_games")
 
@@ -29,14 +29,14 @@ df_winner = df.filter(F.col("`winner.elixir.average`").isNotNull()) \
 # Ordenamos para tenerlo ordenado en funcion de la hora
 # Usamos un filtro porque hay unos 100 elementos que no tenian hora
 df_loser = df.filter(F.col("`loser.elixir.average`").isNotNull()) \
-             .withColumn("elixir_range", F.when((col >= 1) & (col < 2), "1-2")
-                                            .when((col >= 2) & (col < 3), "2-3")
-                                            .when((col >= 3) & (col < 4), "3-4")
-                                            .when((col >= 4) & (col < 5), "4-5")
-                                            .when((col >= 5) & (col < 6), "5-6")
-                                            .when((col >= 6) & (col < 7), "6-7")
-                                            .when((col >= 7) & (col < 8), "7-8")
-                                            .when((col >= 8) & (col < 9), "8-9")
+             .withColumn("elixir_range", F.when((F.col("`winner.elixir.average`")  >= 1) & (F.col("`winner.elixir.average`")  < 2), "1-2")
+                                            .when((F.col("`winner.elixir.average`")  >= 2) & (F.col("`winner.elixir.average`")  < 3), "2-3")
+                                            .when((F.col("`winner.elixir.average`")  >= 3) & (F.col("`winner.elixir.average`")  < 4), "3-4")
+                                            .when((F.col("`winner.elixir.average`")  >= 4) & (F.col("`winner.elixir.average`")  < 5), "4-5")
+                                            .when((F.col("`winner.elixir.average`")  >= 5) & (F.col("`winner.elixir.average`")  < 6), "5-6")
+                                            .when((F.col("`winner.elixir.average`")  >= 6) & (F.col("`winner.elixir.average`")  < 7), "6-7")
+                                            .when((F.col("`winner.elixir.average`")  >= 7) & (F.col("`winner.elixir.average`")  < 8), "7-8")
+                                            .when((F.col("`winner.elixir.average`")  >= 8) & (F.col("`winner.elixir.average`")  < 9), "8-9")
                                             .otherwise("9-10")) \
              .groupBy("elixir_range").count().withColumnRenamed("count", "loser_num_games")
              
