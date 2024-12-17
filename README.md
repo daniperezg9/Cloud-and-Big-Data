@@ -29,11 +29,23 @@ Para crear la gráficas de los csv que devuelve todos estos scripts hemos desarr
 ## Uso
 ## Evaluación de desempeño
 A continuación vamos a analizar el rendimiento de distintos cluster ejecutando los diferentes script que hemos desarrollado:
+
 ![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/compareCluster.png)
+
 Para el mismo número de vCPUs, se puede observar que los cluster con 2 maquinas tienen menor tiempo de ejecución que los cluster con 4 maquinas (2 maquinas de 4 cores vs 4 maquinas de 2 cores y 2 maquinas de 8 cores vs 4 maquinas de 4 cores)
-Tambien podemos observar que el script que más tiempo tarda en ejecutarse es [Number of games in each range of average elixir used ingame](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/Code/clash-royale-numGamesInEachRangesOfAverageExilir.py). Esto se puede deber al uso de funciones definidas por el desarrollador en vez de usar funciones nativas de Pyspark.
+
+También podemos observar que el script que más tiempo tarda en ejecutarse es [Number of games in each range of average elixir used ingame](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/Code/clash-royale-numGamesInEachRangesOfAverageExilir.py). Esto se puede deber al uso de funciones definidas por el desarrollador en vez de usar funciones nativas de Pyspark.
+
 ## Funcionalidades avanzadas
 En el script de [Number of decks with each card and its average level](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/Code/clash-royale-numDecksWithEachCardAndAverageLevel.py) hemos usado dos funciones que no hemos visto en clase: struct, que crea una nueva columna de estructuras a partir de las columnas que recibe, y array, que crea una nueva columna de un array a partir de los elementos de las columnas pasadas como parámetros.
+
+Tambien hemos investigado a cerca de la posibilidad de definir funciones personalizadas por el desarrolador y el impacto de usar estas frente a aquellas que proporciona Pyspark:
+
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/analyzeUDF.png)
+
+Como se puede observar en la gráfica, el script que usa la UDF tiene un tiempo de ejecución mayor al que usa funciones de Pyspark para lograr el mismo objetivo.
+
+Tras este analisis, podemos concluir que en caso de ser posible, es mejor usar métodos del propio Pyspark que andar desarrolando un código que logre el mismo objetivo.
 ## Conclusiones
 ## Referencias
 - [Pyspark UDF](https://sparkbyexamples.com/pyspark/pyspark-udf-user-defined-function/)
