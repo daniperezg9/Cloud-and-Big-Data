@@ -27,6 +27,16 @@ Los distintos script que hemos usado se pueden encontrar en este repositorio. A 
 Para crear la gráficas de los csv que devuelve todos estos scripts hemos desarrollado el siguiente [código](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/Code/function/main.py) para crear una lambda función que se ejecute cada vez que una tarea escribe en el bucket de resultados.
 
 ## Uso
+Lo primero de todo es crear la lamba función, para que esta se ejecute al finalizar las tareas de los cluster. Para ello dentro de Google Cloud Console iremos a Cloud Run Functions y le daremos a crear función. Dejamos el environment por defecto y le ponemos un nombre descriptivo a la función (ej: generateDiagramFromCsv). Debemos seleccionar la región para que sea la misma que la del bucket donde vayamos a guardar los resultados. Configuramos el trigger seleccionando el tipo Google Storage y tipo de evento google.cloud.storage.object.v1.finalized. También debemos introducir el bucket del cual estará pendiente la función: [heroic-muse-436812-j2-result](https://console.cloud.google.com/storage/browser/heroic-muse-436812-j2-result). También es necesario aumentar la memoria alocada a 512Mib, pues en caso contrario algunas de las gráficas no se generan al quedarse sin memoria. 
+
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/lambda_1.png)
+
+Por último, pulsamos el boton de siguiente, seleccionamos el runtime a Python 3.10 y subimos el main.py y requirements.txt. Ponemos el punto de entrada a la función gcs.
+
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/lambda_2.png)
+
+Ahora debemos crear el cluster
+
 ## Evaluación de desempeño
 A continuación vamos a analizar el rendimiento de distintos cluster ejecutando los diferentes script que hemos desarrollado:
 
