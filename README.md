@@ -1,5 +1,5 @@
 # Cloud & Big Data - Proyecto Final
-## Descripcion del problema
+## Descripción del problema
 El proyecto se centra en el análisis de partidas de la temporada 18 de Clash Royale, un popular juego de estrategia en tiempo real desarrollado por Supercell. Con información de unas aproximadamente 38 millones de partidas, ofrece una rica fuente de datos para estudiar diversos aspectos del comportamiento de los jugadores y las dinámicas del juego, como las cartas más jugadas o el uso de recursos (elixir).
 
 Clash Royale enfrenta a dos jugadores en una arena, donde deben utilizar una combinación de cartas de tropas, hechizos y edificios para destruir las torres del oponente. Cada partida dura hasta 3 minutos, con tiempo extra si es necesario para determinar un ganador.
