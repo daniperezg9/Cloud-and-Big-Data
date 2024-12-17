@@ -1,11 +1,11 @@
 div#contenedor { /* Contenedor que tiene la vista de la web*/
 	height : 100vh;
 	display : grid;
-	grid-template-columns: 20% auto 20%;
-	grid-template-rows: 25% 65% 10%;
+	grid-template-rows: 20% auto;
 
 	margin : 0 auto;
 	border: 1px solid black;
+    overflow: scroll;
 }
 
 header{
@@ -14,7 +14,7 @@ header{
 	background-color: #2f5df3;
 
 	grid-template-columns: 1fr 2fr;
-	grid-template-areas: "logo login";
+	grid-template-areas: "logo texto";
 	align-items: center;
 }
 
@@ -34,18 +34,26 @@ header p{
     color: #f3eeee;
 }
 
-nav { /* Barra de navegación izquierda */
-    grid-column: 1 / 2;
+main {
+    grid-column: 2;
+    grid-row: 2 / 3;
+    text-align: center;
+    margin: 0 10%;
+}
+
+#Top100{
+    width: 100px;
+    height: 100px;
+}
+
+aside{
+    grid-column: 3;
+    grid-row: 2 / 3;
     background-color: red;
 }
 
-nav h3{
-    color: white;
-    font-size: 1.5em;
-    margin-left: 10px;
-}
-
-main {
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
+footer { /* Pie de página */
+	grid-row: 3;
+	text-align: right;
+    color: #2f5df3;
 }
