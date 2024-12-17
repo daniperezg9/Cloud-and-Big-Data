@@ -38,39 +38,39 @@ Por último, pulsamos el boton de siguiente, seleccionamos el runtime a Python 3
 Ahora debemos crear el cluster donde ejecutaremos los diferentes scripts. Aquí están los códigos a ejecutar en el shell para crear los diferentes cluster. Es importante crear uno, ejecutar todos los scripts y despues crear otro, ya que Google Cloud puede limitar el número de vCPUs que se pueden usar simultáneamente (en nuestro caso eran 24).
 
 - Cluster con solo el nodo maestro:
-
-  gcloud dataproc clusters create masteronly --region=europe-southwest1 \\ \
---master-machine-type=e2-standard-4 --master-boot-disk-size=50 \\ \
+```
+gcloud dataproc clusters create masteronly --region=europe-southwest1 \
+--master-machine-type=e2-standard-4 --master-boot-disk-size=50 \
 --single-node --enable-component-gateway
-  
+```
 - Cluster con 2 trabajadores de 4 vCPUs:
-
-  gcloud dataproc clusters create fourcorestwomachines --region=europe-southwest1 \\ \
---master-machine-type=e2-standard-4 --master-boot-disk-size=50 \\ \
---worker-machine-type=e2-standard-4 --worker-boot-disk-size=50 \\ \
+```
+gcloud dataproc clusters create fourcorestwomachines --region=europe-southwest1 \
+--master-machine-type=e2-standard-4 --master-boot-disk-size=50 \
+--worker-machine-type=e2-standard-4 --worker-boot-disk-size=50 \
 --enable-component-gateway
-  
+```
 - Cluster con 2 trabajadores de 8 vCPUs:
-
-  gcloud dataproc clusters create eightcorestwomachines --region=europe-southwest1 \\ \
---master-machine-type=e2-standard-4 --master-boot-disk-size=50 \\ \
---worker-machine-type=e2-standard-8 --worker-boot-disk-size=50 \\ \
+```
+gcloud dataproc clusters create eightcorestwomachines --region=europe-southwest1 \
+--master-machine-type=e2-standard-4 --master-boot-disk-size=50 \
+--worker-machine-type=e2-standard-8 --worker-boot-disk-size=50 \
 --enable-component-gateway
-  
+```
 - Cluster con 4 trabajadores de 2 vCPUs:
-
-  gcloud dataproc clusters create twocoresfourmachines --region=europe-southwest1 \\ \
---master-machine-type=e2-standard-4 --master-boot-disk-size=50 \\ \
---worker-machine-type=e2-standard-2 --worker-boot-disk-size=50 \\ \
+```
+gcloud dataproc clusters create twocoresfourmachines --region=europe-southwest1 \
+--master-machine-type=e2-standard-4 --master-boot-disk-size=50 \
+--worker-machine-type=e2-standard-2 --worker-boot-disk-size=50 \
 --num-workers=4 --enable-component-gateway
-  
+```
 - Cluster con 4 trabajadores de 4 vCPUs:
-
-  gcloud dataproc clusters create fourcoresfourmachines --region=europe-southwest1 \\ \
---master-machine-type=e2-standard-4 --master-boot-disk-size=50 \\ \
---worker-machine-type=e2-standard-4 --worker-boot-disk-size=50 \\ \
+```
+gcloud dataproc clusters create fourcoresfourmachines --region=europe-southwest1 \
+--master-machine-type=e2-standard-4 --master-boot-disk-size=50 \
+--worker-machine-type=e2-standard-4 --worker-boot-disk-size=50 \
 --num-workers=4 --enable-component-gateway
-
+```
 ![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/cluster_1.png)
 
 Una vez creado el cluster, debemos ejecutar los diferentes scripts
@@ -78,10 +78,10 @@ Una vez creado el cluster, debemos ejecutar los diferentes scripts
 INPUT_BUCKET=gs://heroic-muse-436812-j2/project
 
 OUTPUT_BUCKET=gs://heroic-muse-436812-j2-result
-
-gcloud dataproc jobs submit pyspark -- cluster [cluster_name] --region=europe-southwest1 [script] -- \\ \
+```
+gcloud dataproc jobs submit pyspark -- cluster [cluster_name] --region=europe-southwest1 [script] -- \
 $INPUT_BUCKET/datasets $OUTPUT_BUCKET [number of virtual cores]
-
+```
 ![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/cluster_2.png)
 
 Una vez que finalicen, impriran en la pantalla del Cloud Shell el tiempo de ejecución, que lo anotaremos para un análisis posterior
@@ -97,6 +97,47 @@ A continuación vamos a analizar el rendimiento de distintos cluster ejecutando 
 
 ![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/compareCluster.png)
 
+```
+Top 100 with most wins:
+  - Master node: 291,17seg
+  - 2 Workers with 4 cores: 148,73seg     Speed-up =  291,17 / 148,73 = 1,957
+  - 2 Workers with 8 cores: 123,24seg     Speed-up =  291,17 / 123,24 = 2,362
+  - 4 Workers with 2 cores: 261,41seg     Speed-up =  291,17 / 261,41 = 1,113
+  - 4 Workers with 4 cores: 116,58seg     Speed-up =  291,17 / 116,58 = 2,497
+```
+```
+Number of games in every hour:
+  - Master node: 312,20seg
+  - 2 Workers with 4 cores: 160,6seg      Speed-up =  312,20 / 160,6 = 1,94
+  - 2 Workers with 8 cores: 88,22seg      Speed-up =  312,20 / 88,22 = 3,54
+  - 4 Workers with 2 cores: 188,52seg     Speed-up =  312,20 / 188,52 = 1,656
+  - 4 Workers with 4 cores: 113,48seg     Speed-up =  312,20 / 113,48 = 2,751
+```
+```
+Number of games in each range of average elixir used:
+  - Master node: 417,16seg
+  - 2 Workers with 4 cores: 207,60seg     Speed-up =  417,16 / 207,60 = 2,009
+  - 2 Workers with 8 cores: 113,20seg     Speed-up =  417,16 / 113,20 = 3,686
+  - 4 Workers with 2 cores: 249,48seg     Speed-up =  417,16 / 249,48 = 1,674
+  - 4 Workers with 4 cores: 135,28seg     Speed-up =  417,16 / 135,28 = 3,083
+```
+```
+Number of decks with each card and its average level
+  - Master node: 289,4seg
+  - 2 Workers with 4 cores: 159,5seg      Speed-up =  289,4 / 159,5 = 1,815
+  - 2 Workers with 8 cores: 88,85seg      Speed-up =  289,4 / 88,85 = 3,257
+  - 4 Workers with 2 cores: 189,33seg     Speed-up =  289,4 / 189,33 = 1,529
+  - 4 Workers with 4 cores: 111,02seg     Speed-up =  289,4 / 111,02 = 2,606
+```
+```
+Check the most played type of card in each game
+  - Master node: 275,6seg
+  - 2 Workers with 4 cores: 151,66seg     Speed-up =  275,6 / 159,5 = 1,817
+  - 2 Workers with 8 cores: 84,85seg      Speed-up =  275,6/ 88,85 = 3,249
+  - 4 Workers with 2 cores: 192,85seg     Speed-up =  275,6 / 189,33 = 1,429
+  - 4 Workers with 4 cores: 108,24seg     Speed-up =  275,6 / 108,24 = 2,546
+```
+
 Para el mismo número de vCPUs, se puede observar que los cluster con 2 maquinas tienen menor tiempo de ejecución que los cluster con 4 maquinas (2 maquinas de 4 cores vs 4 maquinas de 2 cores y 2 maquinas de 8 cores vs 4 maquinas de 4 cores)
 
 También podemos observar que el script que más tiempo tarda en ejecutarse es [Number of games in each range of average elixir used ingame](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/Code/clash-royale-numGamesInEachRangesOfAverageExilir.py). Esto se puede deber al uso de funciones definidas por el desarrollador en vez de usar funciones nativas de Pyspark.
@@ -108,10 +149,28 @@ Tambien hemos investigado a cerca de la posibilidad de definir funciones persona
 
 ![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/analyzeUDF.png)
 
-Como se puede observar en la gráfica, el script que usa la UDF tiene un tiempo de ejecución mayor al que usa funciones de Pyspark para lograr el mismo objetivo.
+```
+Compare times with UDF and without it
+  - Master node: 319,17seg                Speed-up =  417,16 / 319,17 = 1,943
+  - 2 Workers with 4 cores: 176,53seg     Speed-up =  207,6 / 176,53 = 1,17
+  - 2 Workers with 8 cores: 98,23seg      Speed-up =  113,20 / 98,23 = 1,152
+  - 4 Workers with 2 cores: 206,89seg     Speed-up =  249,48 / 206,89 = 1,2
+  - 4 Workers with 4 cores: 115,97seg     Speed-up =  135,28 / 115,97 = 1,16
+```
+
+Como se puede observar en la gráfica, el script que usa la UDF tiene un tiempo de ejecución mayor (un 15-20% para la mayoria de casos, salvo en el primero) al que usa funciones de Pyspark para lograr el mismo objetivo.
 
 Tras este análisis, podemos concluir que en caso de ser posible, es mejor usar métodos del propio Pyspark que andar desarrolando un código que logre el mismo objetivo.
+
 ## Conclusiones
+En este proyecto, hemos explorado y analizado una gran cantidad de datos provenientes de la temporada 18 de Clash Royale, utilizando tecnologías de Big Data y Cloud Computing para manejar y procesar de manera eficiente la información de aproximadamente 17 millones de partidas. Hemos logrado cumplir los obetivos planteados al inicio del proyecto de forma satisfactoria, proporcionando una visión detallada y significativa sobre el comportamiento de los jugadores y las dinámicas del juego.
+
+Hemos conseguido extraer información valiosa como los jugadores con más victorias, la distribución horaria de las partidas, los rangos de elixir utilizados, la frecuencia de uso de cada carta y su nivel promedio, y el tipo de carta más jugada en cada partida. A través de la comparación de distintos clusters, hemos identificado configuraciones más eficientes, logrando una reducción significativa en los tiempos de ejecución.
+
+El uso de funciones nativas de PySpark resultó en tiempos de ejecución considerablemente mas pequeños en comparacion con el uso de funciones definidas por el desarrollador (UDFs). Esto destaca la importancia de priorizar las funciones nativas para optimizar el rendimiento.
+
+Para trabajo futuro se podria explorar incluir datasets de nuevas temporadas identificar tendencias y cambios en el comportamiento de los jugadores a lo largo del tiempo, además de combinar los datos de partidas con otras fuentes, como encuestas a jugadores o datos de redes sociales, para obtener una visión más completa del ecosistema del juego.
+
 ## Referencias
 - [Pyspark UDF](https://sparkbyexamples.com/pyspark/pyspark-udf-user-defined-function/)
 - [Función struct](https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.struct.html)
