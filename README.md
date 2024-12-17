@@ -31,11 +31,63 @@ Lo primero de todo es crear la lamba función, para que esta se ejecute al final
 
 ![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/lambda_1.png)
 
-Por último, pulsamos el boton de siguiente, seleccionamos el runtime a Python 3.10 y subimos el main.py y requirements.txt. Ponemos el punto de entrada a la función gcs.
+Por último, pulsamos el boton de siguiente, seleccionamos el runtime a Python 3.10 y subimos el main.py y requirements.txt. Ponemos el punto de entrada a la función gcs y desplegamos.
 
 ![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/lambda_2.png)
 
-Ahora debemos crear el cluster
+Ahora debemos crear el cluster donde ejecutaremos los diferentes scripts. Aqui estan los códigos a ejecutar en el shell para crear los diferentes cluster. Es importante crear uno, ejecutar todos los cripts y despues crear otro, ya que Google Cloud puede limitar el número de vCPUs que se pueden usar simultaneamente (en nuestro caso eran 24).
+
+- Cluster con solo el nodo maestro:
+
+  gcloud dataproc clusters create masteronly --region=europe-southwest1 \\ \
+--master-machine-type=e2-standard-4 --master-boot-disk-size=50 \\ \
+--single-node --enable-component-gateway
+  
+- Cluster con 2 trabajadores de 4 vCPUs:
+
+  gcloud dataproc clusters create fourcorestwomachines --region=europe-southwest1 \\ \
+--master-machine-type=e2-standard-4 --master-boot-disk-size=50 \\ \
+--worker-machine-type=e2-standard-4 --worker-boot-disk-size=50 \\ \
+--enable-component-gateway
+- Cluster con 2 trabajadores de 8 vCPUs:
+
+  gcloud dataproc clusters create eightcorestwomachines --region=europe-southwest1 \\ \
+--master-machine-type=e2-standard-4 --master-boot-disk-size=50 \\ \
+--worker-machine-type=e2-standard-8 --worker-boot-disk-size=50 \\ \
+--enable-component-gateway
+- Cluster con 4 trabajadores de 2 vCPUs:
+
+  gcloud dataproc clusters create twocoresfourmachines --region=europe-southwest1 \\ \
+--master-machine-type=e2-standard-4 --master-boot-disk-size=50 \\ \
+--worker-machine-type=e2-standard-2 --worker-boot-disk-size=50 \\ \
+--num-workers=4 --enable-component-gateway
+- Cluster con 4 trabajadores de 4 vCPUs:
+
+  gcloud dataproc clusters create fourcoresfourmachines --region=europe-southwest1 \\ \
+--master-machine-type=e2-standard-4 --master-boot-disk-size=50 \\ \
+--worker-machine-type=e2-standard-4 --worker-boot-disk-size=50 \\ \
+--num-workers=4 --enable-component-gateway
+
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/cluster_1.png)
+
+Una vez creado el cluster, debemos ejecutar los diferentes scripts
+
+INPUT_BUCKET=gs://heroic-muse-436812-j2/project
+
+OUTPUT_BUCKET=gs://heroic-muse-436812-j2-result
+
+gcloud dataproc jobs submit pyspark -- cluster [cluster_name] --region=europe-southwest1 [script] -- \\ \
+$INPUT_BUCKET/datasets $OUTPUT_BUCKET [number of virtual cores]
+
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/cluster_2.png)
+
+Una vez que finalicen, impriran en la pantalla del Cloud Shell el tiempo de ejecución, que lo anotaremos para un análisis posterior
+
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/cluster_3.png)
+
+Por último, podemos ver que en el bucket de resultados se ha creado un diagrama en la carpeta diagrams
+
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/bucket_1.png)
 
 ## Evaluación de desempeño
 A continuación vamos a analizar el rendimiento de distintos cluster ejecutando los diferentes script que hemos desarrollado:
