@@ -101,7 +101,7 @@ También podemos observar que el script que más tiempo tarda en ejecutarse es [
 ## Funcionalidades avanzadas
 En el script de [Number of decks with each card and its average level](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/Code/clash-royale-numDecksWithEachCardAndAverageLevel.py) hemos usado dos funciones que no hemos visto en clase: struct, que crea una nueva columna de estructuras a partir de las columnas que recibe, y array, que crea una nueva columna de un array a partir de los elementos de las columnas pasadas como parámetros.
 
-Tambien hemos investigado a cerca de la posibilidad de definir funciones personalizadas por el desarrolador y el impacto de usar estas frente a aquellas que proporciona Pyspark:
+Tambien hemos investigado a cerca de la posibilidad de definir funciones personalizadas por el desarrollador y el impacto de usar estas frente a aquellas que proporciona Pyspark:
 
 ![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/analyzeUDF.png)
 
