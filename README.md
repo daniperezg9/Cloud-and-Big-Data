@@ -29,11 +29,11 @@ Para crear la gráficas de los csv que devuelven todos estos scripts hemos desar
 ## Uso
 Lo primero de todo es crear la lamba función, para que esta se ejecute al finalizar las tareas de los cluster. Para ello dentro de Google Cloud Console iremos a Cloud Run Functions y le daremos a crear función. Dejamos el environment por defecto y le ponemos un nombre descriptivo a la función (ej: generateDiagramFromCsv). Debemos seleccionar la región para que sea la misma que la del bucket donde vayamos a guardar los resultados. Configuramos el trigger seleccionando el tipo Google Storage y tipo de evento google.cloud.storage.object.v1.finalized. También debemos introducir el bucket del cual estará pendiente la función: [heroic-muse-436812-j2-result](https://console.cloud.google.com/storage/browser/heroic-muse-436812-j2-result). También es necesario aumentar la memoria alocada a 512Mib, pues en caso contrario algunas de las gráficas no se generan al quedarse sin memoria. 
 
-![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/lambda_1.png)
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/images/lambda_1.png)
 
 Por último, pulsamos el boton de siguiente, seleccionamos el runtime a Python 3.10 y subimos el main.py y requirements.txt. Ponemos el punto de entrada a la función gcs y desplegamos.
 
-![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/lambda_2.png)
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/images/lambda_2.png)
 
 Ahora debemos crear el cluster donde ejecutaremos los diferentes scripts. Aquí están los códigos a ejecutar en el shell para crear los diferentes cluster. Es importante crear uno, ejecutar todos los scripts y despues crear otro, ya que Google Cloud puede limitar el número de vCPUs que se pueden usar simultáneamente (en nuestro caso eran 24).
 
@@ -71,7 +71,7 @@ gcloud dataproc clusters create fourcoresfourmachines --region=europe-southwest1
 --worker-machine-type=e2-standard-4 --worker-boot-disk-size=50 \
 --num-workers=4 --enable-component-gateway
 ```
-![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/cluster_1.png)
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/images/cluster_1.png)
 
 Una vez creado el cluster, debemos ejecutar los diferentes scripts
 
@@ -82,20 +82,20 @@ OUTPUT_BUCKET=gs://heroic-muse-436812-j2-result
 gcloud dataproc jobs submit pyspark -- cluster [cluster_name] --region=europe-southwest1 [script] -- \
 $INPUT_BUCKET/datasets $OUTPUT_BUCKET [number of virtual cores]
 ```
-![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/cluster_2.png)
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/images/cluster_2.png)
 
 Una vez que finalicen, impriran en la pantalla del Cloud Shell el tiempo de ejecución, que lo anotaremos para un análisis posterior
 
-![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/cluster_3.png)
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/images/cluster_3.png)
 
 Por último, podemos ver que en el bucket de resultados se ha creado un diagrama en la carpeta diagrams
 
-![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/bucket_1.png)
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/images/bucket_1.png)
 
 ## Evaluación de desempeño
 A continuación vamos a analizar el rendimiento de distintos cluster ejecutando los diferentes script que hemos desarrollado:
 
-![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/compareCluster.png)
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/images/compareCluster.png)
 
 ```
 Top 100 with most wins:
@@ -147,7 +147,7 @@ En el script de [Number of decks with each card and its average level](https://g
 
 Tambien hemos investigado a cerca de la posibilidad de definir funciones personalizadas por el desarrolador y el impacto de usar estas frente a aquellas que proporciona Pyspark:
 
-![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/imgs/analyzeUDF.png)
+![img](https://github.com/daniperezg9/Cloud-and-Big-Data/blob/main/images/analyzeUDF.png)
 
 ```
 Compare times with UDF and without it
