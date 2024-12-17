@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Cloud & Big Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link
+      id="estilo"
+      rel="stylesheet"
+      type="text/css"
+      href="./css/estilo.css"
+    />
+    <link rel="icon" type="image/png" href="./images/logoClashRoyale.png"/>
+  </head>
+  <body>
+    <header id="cabecera">
+      <img
+        src="./images/logoClashRoyale.png"
+        alt="Logo de Clash & Cloud"
+        id="LogoClash"
+      />
+      <div id="intro">
+        <h1>Clash & Cloud</h1>
+        <p>Análisis de Clash Royale a través de Cloud Computing</p>
+      </div>
+    </header>
+
+    <main>
+      <h1>Clash Royale</h1>
+    <p>
+      Clash Royale es uno de los juegos más populares de plataforma móvil. Se
+      trata de un juego de estrategia en tiempo real en el que los jugadores se
+      enfrentan con el objetivo de destruir las torres del enemigo usando cartas
+      con diferentes características. Hemos analizado este juego utilizando
+      técnicas de Cloud Computing como Spark para poner analizar diferentes
+      estadísticas que se producen durante las partidas.
+    </p>
+    <p>
+        A continuación, se muestran algunos de los análisis que hemos realizado:
+    </p>
+
+    <h2>Top 100 jugadores con más victorias</h2>
+    <p>
+      Hemos identificado a los 100 jugadores con más victorias en Clash Royale en la temporada 18.
+      En el siguiente gráfico, se muestra el tag de los jugadores y el número de victorias que han obtenido.
+      Luego, hemos usado una <a href="https://royaleapi.com/player/search/results">API de Clash Royale</a> para obtener el nombre de los jugadores a partir de su tag.
+
+      Los 5 jugadores con más victorias son:
+      <ul>
+        <li>Tag: #9Q90P0Y0 - Nombre: JonKim - Victorias: 471</li>
+        <li>Tag: #8LJCCUL22 - Nombre: CHN丨Rakan❤️Lava - Victorias: 440</li>
+        <li>Tag: #PRQP9R9G2 - Nombre: チョップ吉田 - Victorias: 437</li>
+        <li>Tag: #9LQJ0QYV2 - Nombre: gill - Victorias: 433</li>
+        <li>Tag: #UQYR8Y9G - Nombre: FiddlingTacocat - Victorias: 414</li>
+      </ul>
+    </p>
+    <img src="./images/diagrams_player_id-num_games-diagram.png" alt="Top 100 jugadores" id="Top100" width="1250" height="750"/>
+
+    <h2>Número de partidas en cada hora</h2>
+    <p>
+      Hemos observado cuantas partidas se han jugado en cada hora del día.<br>
+      En el siguiente gráfico, se muestra el número de partidas jugadas en cada hora.<br>
+      Como se puede observar, el número de partidas jugadas es mayor entre las 22:00 y las 6:00 (CET).
+    </p>
+    <img src="./images/diagrams_hour_of_day-num_games-diagram.png" alt="Número de partidas en cada hora" id="HourGames" width="750" height="750"/>
+
+    <h2>Tipo de carta más jugada</h2>
+    <p>
+      En Clash Royale existen diferentes tipos de cartas. Se pueden clasificar en 3 tipos: tropas, hechizos y edificios.
+      Hemos analizado cuál es el tipo de carta más jugado en las partidas. Hemos comprobado que el tipo de carta que más se juega son las tropas con una amplia diferencia respecto al resto.
+    </p>
+    <img src="./images/diagrams_most_played_type-num_games-diagram.png" alt="Tipo de carta más jugada" id="CardType" width="750" height="750"/>
+
+    <h2>Número de partidas en cada rango de elixir</h2>
+    <p>
+      En las partidas del Clash Royale, los jugadores cuentan con una barra que contiene 10 unidades de elixir, que se van regenerando con el tiempo a medida que se gastan en las cartas.
+      Cada carta tiene un coste de elixir que se debe gastar para jugarla. Hemos analizado cuales suelen ser los rangos de elixir en los que se juegan las partidas.
+      Hemos observado que el rango de elixir más común es de 3 a 4 unidades tanto para el ganador como el perdedor de la partida.
+    </p>
+    <img src="./images/diagrams_elixir_range-winner_num_games-diagram.png" alt="Rango de elixir del Ganador" id="WinnerElixirRange" width="750" height="750"/>
+    <img src="./images/diagrams_elixir_range-loser_num_games-diagram.png" alt="Rango de elixir del Ganador" id="LoserElixirRange" width="750" height="750"/>
+
+    <h2>Número de veces que se juega cada carta y nivel medio</h2>
+    <p>
+      Hemos analizado cuántas veces se juega cada carta en las partidas y el nivel medio de las cartas jugadas.
+      En el siguiente gráfico, se muestra el número de veces que se juega cada carta y el nivel medio de las cartas jugadas.
+      Como se puede observar, la carta más utilizada es "El Tronco", siendo usada en 9467868 mazos; y la que cuenta con más nivel medio es el Gigante Noble, con 12.509413949070867.
+    </p>
+    <img src="./images/diagrams_card_name-num_decks_which_used_it-diagram.png" alt="Número de veces que se juega cada carta" id="CardName" width="1545" height="927"/>
+    <img src="./images/diagrams_card_name-avg_card_level-diagram.png" alt="Nivel medio de las cartas jugadas" id="CardLevel" width="1545" height="927"/>
+    </main>
+  </body>
+</html>

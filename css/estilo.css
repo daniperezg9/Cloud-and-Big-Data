@@ -37,23 +37,10 @@ header p{
 main {
     grid-column: 2;
     grid-row: 2 / 3;
-    text-align: center;
+    text-align: left;
     margin: 0 10%;
 }
 
-#Top100{
-    width: 100px;
-    height: 100px;
-}
-
-aside{
-    grid-column: 3;
-    grid-row: 2 / 3;
-    background-color: red;
-}
-
-footer { /* Pie de página */
-	grid-row: 3;
-	text-align: right;
-    color: #2f5df3;
+body {
+    text-align: center;
 }
